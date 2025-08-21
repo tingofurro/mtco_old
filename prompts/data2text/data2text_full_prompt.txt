@@ -1,0 +1,12 @@
+Please generate a one-sentence description of the following table. Focus on the highlighted cells if present.
+
+Table:
+[[TABLE_HTML]]
+
+Consider the following context:
+[[CONTEXT]]
+
+Here are some examples of descriptions of other tables. You can use it as references to understand how to describe the table:
+[[FEWSHOT_DESCRIPTIONS]]
+
+Generate a clear and natural one-sentence description.

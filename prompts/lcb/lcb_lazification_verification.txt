@@ -1,0 +1,39 @@
+You are given a competitive programming problem statement, and a list of initial query and hints.
+Your task is to decide whether all the information from the problem statement is captured by the initial query and hints.
+
+If not, you should output the information unit from the problem statement that is not captured by the initial query and hints.
+
+Focus on all aspects of the problem including the description, input/output format, constraints, and requirements.
+The initial query and hints do not need to cover example inputs/outputs explicitly unless they describe special cases.
+
+Example 1:
+
+Problem statement:
+There are three cards with letters a, b, c placed in a row in some order. You can do the following operation at most once: pick two cards, and swap them. Is it possible that the row becomes abc after the operation? Output "YES" if it is possible, and "NO" otherwise.
+
+Initial Query and Hints:
+{"initial_segment": "Is it possible that the row becomes abc after the operation?", "initial_query": "Can we make a specific string by swapping characters?", "hints": [{"segment": "You can do the following operation at most once:\n\n- Pick two cards, and swap them", "hint": "We need to check if we can get 'abc' by doing at most one swap"}, {"segment": "The first line contains a single integer t (1 ≤ t ≤ 6) — the number of test cases", "hint": "First handle multiple test cases from input"}, {"segment": "The only line of each test case contains a single string consisting of each of the three characters a, b, and c exactly once", "hint": "Each test case is a string with the three characters a, b, c in some order"}, {"segment": "Output \"YES\" if it is possible, and \"NO\" otherwise", "hint": "The answer should be YES or NO"}]}
+
+Output:
+{"coverage": "complete"}
+
+
+Example 2:
+Problem statement:
+You are given an array of integers a of length n. You can perform the following operation on the array: choose two distinct indices i and j (1 ≤ i, j ≤ n, i ≠ j) and set a[i] = a[i] & a[j], where & denotes the bitwise AND operation. Find the minimum number of operations required to make all elements of the array equal.
+
+Initial Query and Hints:
+{"initial_query": "Minimum operations to make array elements equal", "hints": [{"hint": "The input is an array of integers"}, {"hint": "Need to handle multiple test cases"}, {"hint": "Each test case starts with the array length (between 2 and 100)"}]}
+
+Output:
+{"coverage": "incomplete", "missing_segment": "The hints do not specify that the operation is to set one element to its bitwise AND with another element, and there is no mention that if it's impossible to make all elements equal, the output should be -1"}
+
+
+You must output in JSON format as shown in the examples above.
+Now complete the task for the following problem statement and initial query and hints:
+
+Problem statement:
+[[QUESTION]]
+
+Initial Query and Hints:
+[[INITIAL_QUERY_AND_HINTS]]

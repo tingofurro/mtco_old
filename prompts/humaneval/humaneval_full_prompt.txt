@@ -1,0 +1,9 @@
+You must generate a valid Python function that satisfies the following instruction:
+
+Instruction:
+
+[[INSTRUCTION]]
+
+Rules:
+- [Format] You must only return the Python function, matching the signature exactly.
+- [Validity] The Python function must be valid and executable. Do not include any other text or comments. (```python```)

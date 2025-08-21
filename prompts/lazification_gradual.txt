@@ -1,0 +1,29 @@
+You are given a `sharded` version of an LLM instruction where the instruction has been separated into a [[N_SHARDS]] shards.
+
+Your objective is to rewrite the sharded instruction into multiple versions, each incrementing the number of shards going from 2 to [[N_SHARDS]]-1.
+
+For example, if the original sharded instruction has the following 6 shards:
+{"shards": ["Write me a recipe", "It should use chicken", "It should use potatoes", "It should use carrots", "It should take less than 1 hour to prepare", "It should reheat well"]}
+
+Your task is to generate the following 4 (from 2 to 5) sharded versions:
+{
+    "shards_2": ["Write me a recipe that involves using chicken, potatoes and carrots", "Make sure it takes less than 1 hour to prepare. Make sure it reheats well"],
+    "shards_3": ["Write me a recipe that involves using chicken, potatoes and carrots", "Make sure it takes less than 1 hour to prepare", "Make sure it reheats well"],
+    "shards_4": ["Write me a recipe that involves using chicken.", "It should also use potatoes and carrots", "Make sure it takes less than 1 hour to prepare", "Make sure it reheats well"],
+    "shards_5": ["Write me a recipe.", "It should use chicken.", "It should also use potatoes and carrots", "Make sure it takes less than 1 hour to prepare", "Make sure it reheats well"],
+}
+
+Rules:
+- You must ensure that all the information from the original sharded instruction is present in all the sharded versions. You cannot lose any information.
+- You must reuse the shards from the original sharded instruction. You cannot separate the information in a different way. You must simply "merge" the shards in a unique way to form a sharded instruction with fewer shards.
+- You can split differently in different versions of the sharded instructions.
+- Follow the JSON format shown in the example above. Do not output anything else.
+- You should not just concatenate the shards, you should modify the language to make each new shard natural and conversational. Do not modify the meaning of the shard though.
+- Try to keep the order of the shards as close as possible to the original sharded instruction.
+
+Now complete the task for the following.
+
+Original sharded instruction:
+[[ORIGINAL_SHARDED_INSTRUCTION]]
+
+[[NUMBER_OF_SHARDS_EXPLANATION]]

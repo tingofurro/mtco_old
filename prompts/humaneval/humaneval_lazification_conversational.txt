@@ -1,0 +1,201 @@
+You are given a python function header and segments of information from the header. Your task is to: 
+
+(1) identify one segment that summarizes the core functionality, and convert it into a concise conversational intent, which we call the initial query,
+(2) for each of the remaining segments, convert it into a hint that can be provided to the system in a follow-up turn of the conversation
+
+Initial query rules:
+- [Short initial query] Make the initial query short, casual, and colloquial. It should not be a full sentence, similar to how users use a search engine like Google. You may omit details that can be covered by the hints.
+
+Follow-up hints rules:
+- [Self-contained hints] Do not use pronouns (e.g., it, these, them, those) to reference information in the other segments in the hints.
+- [Transform every segment] Make sure each segment is included either as the initial query or as a hint. Do not forget any segments.
+- [Hint paraphrasing] Make sure that the hint conveys the same information as the segment in a casual, colloquial way (i.e., what a human would say).
+- [Order of hints] Order the hints in order of importance, from most to least important to the query. You do not need to keep the order the segments are provided in.
+
+Your output should be a JSON object in the following format:
+{
+    "initial_segment": "[exact excerpt from the header]",
+    "initial_query": "casual, colloquial version of the initial segment, expressed as an intent",
+    "hints": [
+    {"segment": "[exact excerpt from the header]", "hint": "casual, colloquial version of the segment taking the rest of the header into account"}
+    ]
+}
+
+# Example 1:
+
+## Python function header
+
+```python
+def group_anagrams(words):
+    \"\"\"Group words that are anagrams of each other and sort them in alphabetical order. Unique anagrams should be grouped respectively in a list. Return each group as a tuple.
+    >>> group_anagrams(["eat", "tea", "tan", "ate", "nat", "bat"])
+    [['ate', 'eat', 'tea'], ['nat', 'tan'], ['bat']]
+    \"\"\"
+```
+
+## Segments
+
+```json
+[
+    {"segment": "Group words"},
+    {"segment": "that are anagrams of each other"},
+    {"segment": "sorted them in alphabetical order"},
+    {"segment": "Unique anagrams should be grouped respectively in a list"}
+    {"segment": "Return each group as a tuple"},    
+]
+```
+
+## Output
+
+```json
+{
+    "initial_segment": "Group words",
+    "initial_query": "Help me group some words together",
+    "hints": [
+        {"segment": "that are anagrams of each other", "hint": "grouping is based on anagrams"},
+        {"segment": "Unique anagrams should be grouped respectively in a list", "hint": "make a new group for every anagram"},
+        {"segment": "sorted them in alphabetical order", "hint": "sort the words alphabetically in each group"},
+        {"segment": "Return each group as a tuple", "hint": "return each group as a tuple"}
+    ]
+}
+```
+
+# Example 2:
+
+## Python function header
+
+```python
+def one_hot_encoding(arr, n):
+    \"\"\"Given a list of integers and a number n, implement one-hot encoding of the list with the dimension size n.
+    One-hot encoding is a vector of zeros with a one at the index of the integer.
+    You may not assume that the integers in the list are always less than n, in which case use  the dimension size n to encode that number.
+    >>> one_hot_encoding([1, 2, 3, 100], 6)
+    [
+        [0, 1, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0, 0],
+        [0, 0, 0, 1, 0, 0],
+        [0, 0, 0, 0, 0, 1],
+    ]
+    \"\"\"
+```
+
+## Segments
+
+```json
+[
+    {"segment": "Given a list of integers and a number n"},
+    {"segment": "implement one-hot encoding of the list with the dimension size n"},
+    {"segment": "One-hot encoding is a vector of zeros with a one at the index of the integer"},
+    {"segment": "You may not assume that the integers in the list are always less than n"},
+    {"segment": "use the dimension size n to encode that number"},
+]
+```
+
+## Output
+
+```json
+{
+    "initial_segment": "implement one-hot encoding of the list with the dimension size n",
+    "initial_query": "Encode numbers into n-dimensional vectors",
+    "hints": [
+        {"segment": "Given a list of integers and a number n", "hint": "work with an integer array and the dimension size"},
+        {"segment": "One-hot encoding is a vector of zeros with a one at the index of the integer", "hint": "each vector has 1 at index position"},
+        {"segment": "You may not assume that the integers in the list are always less than n", "hint": "I might get very large numbers"},
+        {"segment": "use the dimension size n to encode that number", "hint": "use the final dimension for any large numbers"}
+    ]
+}
+```
+
+# Example 3:
+
+## Python function header
+
+```python
+def two_sum_indices(nums, target):
+    \"\"\"Given an array of integers nums and an integer target, return the sum of the indices of the two numbers such that they add up to target. Return -1 if no such pair exists.
+    >>> two_sum_indices([2, 7, 11, 15], 9)
+    1
+    >>> two_sum_indices([3], 6)
+    -1    
+    \"\"\"
+```
+
+## Segments
+
+```json
+[
+    {"segment": "Given an array of integers nums and an integer target"},
+    {"segment": "return the sum of the indices"},
+    {"segment": "of the two numbers"},
+    {"segment": "they add up to target"},
+    {"segment": "Return -1 if no such pair exists"},
+    {"segment": "[3], 6 -> -1"},    
+]
+```
+
+## Output
+
+```json
+{
+    "initial_segment": "return the sum of the indices",
+    "initial_query": "Sum up two positions from a list",
+    "hints": [
+        {"segment": "Given an array of integers nums and an integer target", "hint": "The input is a list of integers and a target number"},
+        {"segment": "return the sum of the indices of the two numbers", "hint": "sum the indices of a pair"},
+        {"segment": "they add up to target", "hint": "Found numbers should sum up to the target"},
+        {"segment": "Return -1 if no such pair exists", "hint": "If no such pair exists, return -1"},
+        {"segment": "[3], 6 -> -1", "hint": "For example, if the input is [3] and the target is 6, the output is -1"}
+    ]
+}
+```
+
+# Example 4
+
+## Python function header
+
+```python
+def rev_fib(n):
+    \"\"\"Given a positive integer n, return n-th largest fibonacci number under 1000.
+    If such number does not exist, return -1.
+    >>> rev_fib(1000)
+    -1    
+    \"\"\"
+```
+
+## Segments
+
+```json
+[
+    {"segment": "Given a positive integer n"},
+    {"segment": "return n-th largest"},
+    {"segment": "fibonacci number"},
+    {"segment": "under 1000"},
+    {"segment": "number does not exist, return -1"},
+    {"segment": "1000 -> -1"}
+]
+```
+
+## Output
+
+```json
+{
+    "initial_segment": "fibonacci number",
+    "initial_query": "Work with the Fibonacci sequence",
+    "hints": [
+        {"segment": "Given a positive integer n", "hint": "The function takes an integer k as input"},
+        {"segment": "return n-th largest", "hint": "I need the k-th biggest one"},
+        {"segment": "under 1000", "hint": "I'm only interested in numbers below 1000"},
+        {"segment": "number does not exist, return -1", "hint": "Give me -1 if you can't find a number"},
+        {"segment": "1000 -> -1", "hint": "For example, if the input is 1000, the output is -1"}
+    ]
+}
+```
+
+
+Based on the examples above, complete the task for the following python function header and segments:
+
+## Python function header
+[[QUERY]]
+
+## Segments
+[[SEGMENTS]]

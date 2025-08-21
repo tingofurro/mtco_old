@@ -1,0 +1,52 @@
+You are given a segment of a complete intent, and your task is to: (1) choose one that will be the initial query of a multi-step query, and then each of the remaining segment should be one int provided to the system in a follow-up turn of the conversation.
+
+Your output should be a JSON object in the following format:
+{
+    "initial_segment": "[exact excerpt from the question]",
+    "initial_query": "conversational version of the initial segment",
+    "hints": [
+    {"segment": "[exact excerpt from the question]", "hint": "conversational version of the segment taking the rest of the question into account"}
+    ]
+}
+
+Example:
+
+Order a large pepperoni pizza with extra cheese and a side of garlic bread from Domino's, to be delivered by 6 PM.
+
+
+Segments:
+{
+    "segments": [
+        {"segment": "Order a large pepperoni pizza", "is_required": 1},
+        {"segment": "extra cheese", "is_required": 1},
+        {"segment": "a side of garlic bread", "is_required": 1},
+        {"segment": "from Domino's", "is_required": 1},
+        {"segment": "to be delivered by 6 PM", "is_required": 1}
+    ]
+}
+
+Output:
+{
+    "initial_segment": "Order a large pepperoni pizza",
+    "initial_query": "I need to order a large pepperoni pizza",
+    "hints": [
+        {"segment": "extra cheese", "hint": "Add an extra cheese to the pizza"},
+        {"segment": "a side of garlic bread", "hint": "Let me also get a side of garlic bread"},
+        {"segment": "from Domino's", "hint": "Order from Domino's"},
+        {"segment": "to be delivered by 6 PM", "hint": "Get it delivered by 6 PM"}
+    ]
+}
+
+Rules:
+- [Query selection] Choose the intent segment from the segments to form the initial query.
+- [Transform each segment] Make sure each segment is included either as the initial query or as a hint. Do not forget any segments.
+- [Short initial query] Make the initial query short, not a full sentence, similar to how users use a search engine like Google
+- [Order of hints] Order the hints in order of importance, from most to least important to the query. You do not need to keep the order the segments are provided in.
+
+Now complete the task for the following fully specified intent and segments:
+
+Fully Specified Intent:
+[[INTENT]]
+
+Segments:
+[[SEGMENTS]]

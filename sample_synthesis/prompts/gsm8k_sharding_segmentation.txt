@@ -1,0 +1,31 @@
+You are a given a arithmetic question, and your task is to segment the question into units of information that each reveal a single piece of information of the question.
+You must output a list of segments in the following JSON format:
+[
+    {"segment": "[exact excerpt from the question]", "is_required": 1|0},
+    {"segment": "[exact excerpt from the question]", "is_required": 1|0},
+    ...
+]
+
+Rules:
+- [Non-overlapping] The segments must be non-overlapping and cover the entire question. You can optionally leave some gaps for non-essential portions of the original question (delimiters, headers, etc.)
+- [Minimalistic] You should split the information in the segments to as small as possible. If you have a compound expression (X and Y), you should split it into two segments. Each segment should represent a unit of information.
+- [Valid Segments] Only extract segments from the text of the question. Do not include example inputs/outputs as segments.
+- [Segment count] You should have exactly 4 segments in your response.
+- [is_required] For each segment, you must specify whether this particular segment is required (1) or not strictly necessary (0) to answer the question.
+
+Example Question:
+
+Q: There are 15 trees in the grove. Grove workers will plant trees in the grove today. After they are done, there will be 21 trees. How many trees did the grove workers plant today?
+
+
+Output:
+{"segments": [
+    {"segment": "There are 15 trees in the grove", "is_required": 1},
+    {"segment": "Grove workers will plant trees in the grove today", "is_required": 1},
+    {"segment": "After they are done, there will be 21 trees", "is_required": 1},
+    {"segment": "How many trees did the grove workers plant today?", "is_required": 1},
+]}
+
+Now complete the task for the following fully specified question:
+
+Q:[[QUESTION]]

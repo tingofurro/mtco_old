@@ -1,0 +1,71 @@
+You are given an instruction that fully specifies a problem, and a list of initial query and hints.
+Your task is to supplement hints with input and / or output format segments ONLY IF they are missing.
+Review each of the existing hint text carefully, look for any mentions about the input or output format, and then add them as hints if you cannot find any.
+Do not modify initial_segment, initial_query, and existing hints.
+
+You must output the initial query and hints in the following JSON format:
+{
+    "initial_segment": "[exact excerpt from the header]",
+    "initial_query": "[exact excerpt from the initial query]",
+    "hints": [
+        {"segment": "[exact excerpt from the hints]", "hint": "[exact excerpt from the hints]"},
+        ...
+    ]
+}
+
+Rules:
+- [is_required] If adding the input or output format segments, you must set is_required to 1.
+- [Non-overlapping] Make sure that the input and output format hints are not overlapping with the existing segments.
+
+Example:
+
+Full Query:
+
+```python
+def group_anagrams(words):
+    \"\"\"Group words that are anagrams of each other and sort them in alphabetical order. Unique anagrams should be grouped respectively in a list.
+    >>> group_anagrams(["eat", "tea", "tan", "ate", "nat", "bat"])
+    [['ate', 'eat', 'tea'], ['nat', 'tan'], ['bat']]
+    >>> group_anagrams(["a", "b", "c", "c"])
+    [['a'], ['b'], ['c', 'c']]
+    >>> group_anagrams(["ab", "a"])
+    [['ab'], ['a']]
+    \"\"\"
+```
+
+Initial Query and Hints:
+{
+    "initial_segment": "Group words",
+    "initial_query": "Write a function that groups anagrams together",
+    "hints": [
+        {"segment": "anagrams of each other", "hint": "words with the same letters in different orders are called anagrams"},
+        {"segment": "sorted in alphabetical order", "hint": "sort each group alphabetically"},
+        {"segment": "grouped respectively", "hint": "create separate groups for each unique anagram if there are more than one"},
+        {"segment": "in a list", "hint": "the output should be a list of lists of grouped anagrams"}
+    ]
+}
+
+Output:
+{
+    "initial_segment": "Group words",
+    "initial_query": "Write a function that groups anagrams together",
+    "hints": [
+        {"segment": "anagrams of each other", "hint": "words with the same letters in different orders are called anagrams"},
+        {"segment": "sorted in alphabetical order", "hint": "sort each group alphabetically"},
+        {"segment": "grouped respectively", "hint": "create separate groups for each unique anagram if there are more than one"},
+        {"segment": "in a list", "hint": "the output should be a list of lists of grouped anagrams"},
+        {"segment": "input format", "hint": "assume the input is a list of words"}
+    ]
+}
+
+Explanation:
+- The input format segment is added because the input format is not described in the initial query nor hints.
+- The output format segment is NOT added because the output format is described in the "in a list" hint segment.
+
+Now complete the task for the following fully specified query:
+
+Full Query:
+[[QUERY]]
+
+Initial Query and Hints:
+[[INITIAL_QUERY_AND_HINTS]]

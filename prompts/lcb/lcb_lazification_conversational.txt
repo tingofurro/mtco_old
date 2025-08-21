@@ -1,0 +1,139 @@
+You are given a competitive programming problem statement and segments of information from the problem. Your task is to:
+
+(1) identify one segment that summarizes the core functionality, and convert it into a concise conversational intent, which we call the initial query,
+(2) for each of the remaining segments, convert it into a hint that can be provided to the system in a follow-up turn of the conversation
+
+Initial query rules:
+- [Short initial query] Make the initial query short, casual, and colloquial. It should not be a full sentence, similar to how users use a search engine like Google. You may omit details that can be covered by the hints.
+
+Follow-up hints rules:
+- [Self-contained hints] Do not use pronouns (e.g., it, these, them, those) to reference information in the other segments in the hints.
+- [Transform every segment] Make sure each segment is included either as the initial query or as a hint. Do not forget any segments.
+- [Hint paraphrasing] Make sure that the hint conveys the same information as the segment in a casual, colloquial way (i.e., what a human would say).
+- [Order of hints] Order the hints in order of importance, from most to least important to the query. You do not need to keep the order the segments are provided in.
+
+Your output should be a JSON object in the following format:
+{
+    "initial_segment": "[exact excerpt from the problem]",
+    "initial_query": "casual, colloquial version of the initial segment, expressed as an intent",
+    "hints": [
+    {"segment": "[exact excerpt from the problem]", "hint": "casual, colloquial version of the segment taking the rest of the problem into account"}
+    ]
+}
+
+# Example 1:
+
+## Problem statement
+
+```
+There are three cards with letters a, b, c placed in a row in some order. You can do the following operation at most once:
+
+- Pick two cards, and swap them.
+
+Is it possible that the row becomes abc after the operation? Output "YES" if it is possible, and "NO" otherwise.
+
+Input
+The first line contains a single integer t (1 ≤ t ≤ 6) — the number of test cases.
+The only line of each test case contains a single string consisting of each of the three characters a, b, and c exactly once, representing the cards.
+
+Output
+For each test case, output "YES" if you can make the row abc with at most one operation, or "NO" otherwise.
+You can output the answer in any case (for example, the strings "yEs", "yes", "Yes" and "YES" will be recognized as a positive answer).
+```
+
+## Segments
+
+```json
+[
+    {"segment": "There are three cards with letters a, b, c placed in a row in some order"},
+    {"segment": "You can do the following operation at most once:\n\n- Pick two cards, and swap them"},
+    {"segment": "Is it possible that the row becomes abc after the operation?"},
+    {"segment": "Output \"YES\" if it is possible, and \"NO\" otherwise"},
+    {"segment": "The first line contains a single integer t (1 ≤ t ≤ 6) — the number of test cases"},
+    {"segment": "The only line of each test case contains a single string consisting of each of the three characters a, b, and c exactly once"},
+    {"segment": "You can output the answer in any case (for example, the strings \"yEs\", \"yes\", \"Yes\" and \"YES\" will be recognized as a positive answer)"},
+    {"segment": "abc -> YES"}
+]
+```
+
+## Output
+
+```json
+{
+    "initial_segment": "Is it possible that the row becomes abc after the operation?",
+    "initial_query": "can I get abc by swapping letters?",
+    "hints": [
+        {"segment": "You can do the following operation at most once:\n\n- Pick two cards, and swap them", "hint": "I'm only allowed to swap two letters once"},
+        {"segment": "The first line contains a single integer t (1 ≤ t ≤ 6) — the number of test cases", "hint": "oh, I need to handle multiple test cases"},
+        {"segment": "There are three cards with letters a, b, c placed in a row in some order", "hint": "the input is three letters: a, b, and c in some order"},
+        {"segment": "The only line of each test case contains a single string consisting of each of the three characters a, b, and c exactly once", "hint": "each test case is just a 3-letter string with a, b, c"},
+        {"segment": "Output \"YES\" if it is possible, and \"NO\" otherwise", "hint": "just print YES or NO for each case"},
+        {"segment": "You can output the answer in any case (for example, the strings \"yEs\", \"yes\", \"Yes\" and \"YES\" will be recognized as a positive answer)", "hint": "doesn't matter if I use uppercase or lowercase for yes/no"},
+        {"segment": "abc -> YES", "hint": "btw, if it's already 'abc', the answer is YES since I don't have to do any swaps"}
+    ]
+}
+```
+
+# Example 2:
+
+## Problem statement
+
+```
+You are given an array of integers a of length n. You can perform the following operation on the array:
+
+1. Choose two distinct indices i and j (1 ≤ i, j ≤ n, i ≠ j)
+2. Set a[i] = a[i] & a[j], where & denotes the bitwise AND operation
+
+Find the minimum number of operations required to make all elements of the array equal.
+
+Input
+The first line contains a single integer t (1 ≤ t ≤ 100) — the number of test cases.
+The first line of each test case contains a single integer n (2 ≤ n ≤ 100) — the length of the array.
+The second line of each test case contains n integers a1, a2, ..., an (0 ≤ ai ≤ 10^9) — the elements of the array.
+
+Output
+For each test case, output a single integer — the minimum number of operations required to make all elements of the array equal. If it is impossible, output -1.
+```
+
+## Segments
+
+```json
+[
+    {"segment": "You are given an array of integers a of length n"},
+    {"segment": "You can perform the following operation on the array:\n\n1. Choose two distinct indices i and j (1 ≤ i, j ≤ n, i ≠ j)\n2. Set a[i] = a[i] & a[j], where & denotes the bitwise AND operation"},
+    {"segment": "Find the minimum number of operations required to make all elements of the array equal"},
+    {"segment": "The first line contains a single integer t (1 ≤ t ≤ 100) — the number of test cases"},
+    {"segment": "The first line of each test case contains a single integer n (2 ≤ n ≤ 100) — the length of the array"},
+    {"segment": "The second line of each test case contains n integers a1, a2, ..., an (0 ≤ ai ≤ 10^9) — the elements of the array"},
+    {"segment": "If it is impossible, output -1"}
+]
+```
+
+## Output
+
+```json
+{
+    "initial_segment": "Find the minimum number of operations required to make all elements of the array equal",
+    "initial_query": "how many steps to make all array values the same?",
+    "hints": [
+        {"segment": "You can perform the following operation on the array:\n\n1. Choose two distinct indices i and j (1 ≤ i, j ≤ n, i ≠ j)\n2. Set a[i] = a[i] & a[j], where & denotes the bitwise AND operation", "hint": "each step I can pick two different array positions and set one to its bitwise AND with the other"},
+        {"segment": "The first line contains a single integer t (1 ≤ t ≤ 100) — the number of test cases", "hint": "got multiple test cases to handle first"},
+        {"segment": "You are given an array of integers a of length n", "hint": "working with an integer array as input"},
+        {"segment": "The first line of each test case contains a single integer n (2 ≤ n ≤ 100) — the length of the array", "hint": "each test gives array length first (2 to 100 elements)"},
+        {"segment": "The second line of each test case contains n integers a1, a2, ..., an (0 ≤ ai ≤ 10^9) — the elements of the array", "hint": "then n numbers, up to 10^9 in value"},
+        {"segment": "If it is impossible, output -1", "hint": "if there's no way to make them all equal, just output -1"}
+    ]
+}
+```
+
+Based on the examples above, complete the task for the following problem statement and segments:
+
+## Problem statement
+```
+[[QUESTION]]
+```
+
+## Segments
+```
+[[SEGMENTS]]
+```

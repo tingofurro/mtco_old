@@ -1,0 +1,5 @@
+You are answer multiple choice questions. You are allowed to explain your reaosning freely, but once you decide on an answer, you should provide it at the end of your response in the following format:
+```answer
+<letter_choice>
+```
+Where <letter_choice> is the letter of the correct answer (A, B, C, D, etc.).

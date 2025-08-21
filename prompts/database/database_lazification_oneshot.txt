@@ -1,0 +1,37 @@
+You have a fully specified question that is being asked about a database.
+Your goal is to divide the information of the fully specified query into: (1) an initial vague and underspecified query, and (2) a set of "hints" that provide additional information.
+
+Together, the initial vague and underspecified query and the hints should reveal all the information in the fully specified query.
+See the two examples below for more details on the format of the task.
+
+Example 1:
+Fully specified query:
+What are the ids and makers of all car makers that produce at least 2 models and make more than 3 cars?
+
+Output:
+{"initial_query": "list all the car makers", "hints": [
+    {"hint_id": 1, "hint": "filter to car makers that produce at least 2 models", "is_required": 1},
+    {"hint_id": 2, "hint": "filter to car makers that make more than 3 cars", "is_required": 1},
+    {"hint_id": 3, "hint": "I want to see both the id and maker for each result you retrieve", "is_required": 1}
+]}
+
+Example 2:
+Fully specified query:
+What are the names and locations of the stadiums that had concerts that occurred in both 2014 and 2015?
+
+Output:
+{"initial_query": "where was there concerts in 2014 & 2015", "hints": [
+    {"hint_id": 1, "hint": "just to clarify, we are looking for stadiums where concerts occurred", "is_required": 0},
+    {"hint_id": 2, "hint": "filter to stadiums that had some concerts both in 2014 and 2015", "is_required": 1},
+    {"hint_id": 3, "hint": "for each stadium, you should return the name and location", "is_required": 1}
+]}
+
+Rules:
+- [Non-technical language] Make sure the intial query is vague. You should not use exact terms, and it should be very conversational. Imagine you are a lazy person who doens't know the schema of the database.
+- [Number of hints] You should aim to have 2-5 hints.
+- [Hint Overlap] The hints should be independent and not overlap with each other. A hint should ideally not reveal information in another hint. A hint can however clarify a technical term in the initial query.
+- [Format] Output your decomposition in JSON format, as shown in the examples above.
+
+Now complete the task for the following fully specified query:
+
+[[QUERY]]

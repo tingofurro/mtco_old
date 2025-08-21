@@ -1,0 +1,93 @@
+You are given a Python function header. Your task is to extract essential implementation specifications where each reveals a single piece of information of the function.
+Focus only within the docstring, not the function signatures or input / output examples. You must output a list of segments in the following JSON format:
+[
+    {"segment": "[exact excerpt from the header]"},
+    {"segment": "[exact excerpt from the header]"},
+    ...
+]
+
+Rules:
+- [Non-overlapping] The segments must be non-overlapping and provide different pieces of information.
+- [Self-contained] The segments must be self-contained. For example, you must not split "A if B" into "A" and "if B".
+- [Coverage] The segments must cover all the essential information in the header to implement the function.
+- [Edge cases] If the header examples contain edge cases, extract exactly *one* of such input / output pair in the following format: `EXAMPLE INPUT -> EXAMPLE OUTPUT`.
+- [Segment count] The number of segments must be at least 4 and no more than 10.
+
+# Example 1
+
+## Input
+```python
+def group_anagrams(words):
+    \"\"\"Group words that are anagrams of each other and sort them in alphabetical order. Unique anagrams should be grouped respectively in a list. Return each group as a tuple.
+    >>> group_anagrams(["eat", "tea", "tan", "ate", "nat", "bat"])
+    [('ate', 'eat', 'tea'), ('nat', 'tan'), ('bat')]
+    >>> group_anagrams([])
+    []
+    \"\"\"
+```
+
+## Output
+{
+    "segments": [
+        {"segment": "Group words"},
+        {"segment": "that are anagrams of each other"},
+        {"segment": "sorted them in alphabetical order"},
+        {"segment": "Unique anagrams should be grouped respectively in a list"},
+        {"segment": "Return each group as a tuple"},
+    ]
+}
+
+# Example 2
+
+## Input
+```python
+def two_sum_indices(nums, target):
+    \"\"\"Given an array of integers nums and an integer target, return the sum of the indices of the two numbers such that they add up to target. Return -1 if no such pair exists.
+    >>> two_sum_indices([2, 7, 11, 15], 9)
+    1
+    >>> two_sum_indices([3], 6)
+    -1
+    \"\"\"
+```
+
+## Output
+{
+    "segments": [
+        {"segment": "Given an array of integers nums and an integer target"},
+        {"segment": "return the sum of the indices"},
+        {"segment": "of the two numbers"},
+        {"segment": "they add up to target"},
+        {"segment": "Return -1 if no such pair exists"},
+        {"segment": "[3], 6 -> -1"},
+    ]
+}
+
+# Example 3
+
+## Input
+```python
+def rev_fib(n):
+    \"\"\"Given a positive integer n, return n-th largest fibonacci number under 1000.
+    If such number does not exist, return -1.
+    >>> rev_fib(1000)
+    -1
+    \"\"\"
+```
+
+## Output
+{
+    "segments": [
+        {"segment": "Given a positive integer n"},
+        {"segment": "return n-th largest"},
+        {"segment": "fibonacci number"},
+        {"segment": "under 1000"},
+        {"segment": "number does not exist, return -1"},
+        {"segment": "1000 -> -1"},
+    ]
+}
+
+Now complete the task for the following Python function header:
+
+```python
+[[QUERY]]
+```

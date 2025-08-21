@@ -1,0 +1,7 @@
+### Question:
+[[QUESTION]]
+
+### Format: [[FORMATTING_PREAMBLE]]
+[[FORMATTING]]
+
+### Answer: (use the provided format with backticks)

@@ -1,0 +1,87 @@
+You are given a competitive programming problem statement. Your task is to extract essential implementation specifications where each reveals a single piece of information needed to solve the problem.
+Focus on the problem description, input/output format, and constraints. You must output a list of segments in the following JSON format:
+[
+    {"segment": "[exact excerpt from the problem]"},
+    {"segment": "[exact excerpt from the problem]"},
+    ...
+]
+
+Rules:
+- [Non-overlapping] The segments must be non-overlapping and provide different pieces of information.
+- [Self-contained] The segments must be self-contained. For example, you must not split "A if B" into "A" and "if B".
+- [Coverage] The segments must cover all the essential information in the problem to implement the solution.
+- [Edge cases] If the problem examples contain edge cases, extract exactly *one* of such input / output pair in the following format: `EXAMPLE INPUT -> EXAMPLE OUTPUT`.
+- [Segment count] The number of segments must be at least 4 and no more than 10.
+
+# Example 1
+
+## Input
+```
+There are three cards with letters a, b, c placed in a row in some order. You can do the following operation at most once:
+
+- Pick two cards, and swap them.
+
+Is it possible that the row becomes abc after the operation? Output "YES" if it is possible, and "NO" otherwise.
+
+Input
+The first line contains a single integer t (1 ≤ t ≤ 6) — the number of test cases.
+The only line of each test case contains a single string consisting of each of the three characters a, b, and c exactly once, representing the cards.
+
+Output
+For each test case, output "YES" if you can make the row abc with at most one operation, or "NO" otherwise.
+You can output the answer in any case (for example, the strings "yEs", "yes", "Yes" and "YES" will be recognized as a positive answer).
+```
+
+## Output
+{
+    "segments": [
+        {"segment": "There are three cards with letters a, b, c placed in a row in some order"},
+        {"segment": "You can do the following operation at most once:\n\n- Pick two cards, and swap them"},
+        {"segment": "Is it possible that the row becomes abc after the operation?"},
+        {"segment": "Output \"YES\" if it is possible, and \"NO\" otherwise"},
+        {"segment": "The first line contains a single integer t (1 ≤ t ≤ 6) — the number of test cases"},
+        {"segment": "The only line of each test case contains a single string consisting of each of the three characters a, b, and c exactly once"},
+        {"segment": "You can output the answer in any case (for example, the strings \"yEs\", \"yes\", \"Yes\" and \"YES\" will be recognized as a positive answer)"},
+        {"segment": "abc -> YES"}
+    ]
+}
+
+# Example 2
+
+## Input
+```
+You are given an array of integers a of length n. You can perform the following operation on the array:
+
+1. Choose two distinct indices i and j (1 ≤ i, j ≤ n, i ≠ j)
+2. Set a[i] = a[i] & a[j], where & denotes the bitwise AND operation
+
+Find the minimum number of operations required to make all elements of the array equal.
+
+Input
+The first line contains a single integer t (1 ≤ t ≤ 100) — the number of test cases.
+The first line of each test case contains a single integer n (2 ≤ n ≤ 100) — the length of the array.
+The second line of each test case contains n integers a1, a2, ..., an (0 ≤ ai ≤ 10^9) — the elements of the array.
+
+Output
+For each test case, output a single integer — the minimum number of operations required to make all elements of the array equal. If it is impossible, output -1.
+```
+
+## Output
+{
+    "segments": [
+        {"segment": "You are given an array of integers a of length n"},
+        {"segment": "You can perform the following operation on the array:\n\n1. Choose two distinct indices i and j (1 ≤ i, j ≤ n, i ≠ j)\n2. Set a[i] = a[i] & a[j], where & denotes the bitwise AND operation"},
+        {"segment": "Find the minimum number of operations required to make all elements of the array equal"},
+        {"segment": "The first line contains a single integer t (1 ≤ t ≤ 100) — the number of test cases"},
+        {"segment": "The first line of each test case contains a single integer n (2 ≤ n ≤ 100) — the length of the array"},
+        {"segment": "The second line of each test case contains n integers a1, a2, ..., an (0 ≤ ai ≤ 10^9) — the elements of the array"},
+        {"segment": "If it is impossible, output -1"}
+    ]
+}
+
+Now complete the task for the following competitive programming problem:
+
+# Question
+```
+[[QUESTION]]
+```

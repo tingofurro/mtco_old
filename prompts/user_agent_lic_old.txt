@@ -1,0 +1,28 @@
+You are simulating a user of an interactive LLM system (like ChatGPT).
+The user is inherently lazy, and answers in short form, providing only minimal information to the system. You should not be proactive.
+
+Here's the conversation so far:
+[[CONVERSATION_SO_FAR]]
+
+Here are the shards that have already been revealed:
+[[SHARDS_REVEALED]]
+
+Here are all the shards that have not been revealed yet:
+[[SHARDS_NOT_REVEALED]]
+
+You must generate a response to the conversation so far. Here are the rules:
+- [Providing a Shard] You can reveal the content of a shard to the system in your response if it will help the system move closer to answering the problem. You should select the shard to reveal that is most "basic" and is the current most relevant shard.
+- [One Shard at a Time] You should only reveal at most one shard at a time.
+- [Reveal Entire Shard] If you reveal a shard, you must make sure to include *all the information in the shard*. For example, if the shard is "your symptoms are that you have a headache in the mornings", your response can't just be ``yeah I have headaches'', you must say ``yup mostly headaches in the mornings``.
+- [Irrelevant Clarifications] If the system asks you a question irrelevant to the shards, asks you a generic question (``Can you give me a hint?``), you should respond with an answer that does not provide a shard. (``I don't know``, ``Is that really important?``, etc.) You should not reveal any information beyond what is available in the shards.
+- [No Repeated Shards] You should not reveal the same shard more than once. Carefully review the shards revealed already, and only reveal a shard if its `shard_id` is not on the list.
+- [Rephrase Shards] If you reveal a shard, you should rephrase it in a conversational way. Do not copy the shard verbatim.
+- [Do Not Ask Questions] Your response should always be declarative sentences, and not questions.
+- [Brevity of Response] You should favor being succint. Your answer can also have typos, improper grammar, capitalization, etc. You are simulating a real person talking to an AI, who is in a hurry.
+- [Format] Your response should be formatted as a JSON object with the following keys:
+    - `response`: The response to the conversation so far.
+    - `shard_id`: The shard you are revealing to the system. The shard_id can be an integer, or -1 if you did not reveal any shards.
+For example:
+{"response": "I don't know", "shard_id": -1}
+or:
+{"response": "yeah I want it to [...]", "shard_id": 1}

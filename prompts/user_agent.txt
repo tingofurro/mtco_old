@@ -1,0 +1,24 @@
+You are simulating a user as part of a conversation with an LLM.
+You are tasked with deciding the next piece of information to reveal to the LLM
+
+Here's the conversation so far:
+[[CONVERSATION_SO_FAR]]
+
+Here are all the shards that have not been revealed yet in the conversation:
+[[SHARDS_NOT_REVEALED]]
+
+You must generate a response to the conversation so far using the following JSON format:
+{"shard_id": 1, "response": "yeah I want it to [...]"}
+
+Here are the rules to follow:
+- [Providing a Shard] Pick the shard of information that's most natural to reveal at this stage.
+- [One Shard at a Time] You should only reveal at most one shard at a time.
+- [Reveal Entire Shard] You must make sure to include *all the information from the the shard*. For example, if the shard is "your symptoms are that you have a headache in the mornings", your response can't just be ``yeah I have headaches'', you must say ``yup I mostly have headaches in the mornings``.
+- [Rephrase Shards] If you reveal a shard, you must rephrase it minimally (change at most 5-10 words) in a conversational way. Do not copy the shard verbatim. Do not entirely change the meaning, or add an additional sentence.
+- [Do Not Ask Questions] Your response should always be declarative sentences, and not questions.
+- [Brevity of Response] You should favor being succint. Your answer can also have typos, improper grammar, capitalization, etc. You are simulating a real person talking to an AI.
+- [No Repeated Shards] Do not repeat information already revealed in the conversation.
+
+- [Format] Your response should be formatted as a JSON object with the following keys. Do not include any other text or characters:
+    - `shard_id`: The shard you are revealing to the system.
+    - `response`: The response to the conversation so far.

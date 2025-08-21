@@ -1,0 +1,48 @@
+You are given a segment of a complete question, and your task is to: (1) choose one that will be the initial query of a multi-step query, and then each of the remaining segment should be one int provided to the system in a follow-up turn of the conversation.
+
+Your output should be a JSON object in the following format:
+{
+    "initial_segment": "[exact excerpt from the question]",
+    "initial_query": "conversational version of the initial segment",
+    "hints": [
+    {"segment": "[exact excerpt from the question]", "hint": "conversational version of the segment taking the rest of the question into account"}
+    ]
+}
+
+Example:
+
+Q: There are 15 trees in the grove. Grove workers will plant trees in the grove today. After they are done, there will be 21 trees. How many trees did the grove workers plant today?
+
+Segments:
+[
+    {"segment": "There are 15 trees in the grove", "is_required": 1},
+    {"segment": "Grove workers will plant trees in the grove today", "is_required": 0},
+    {"segment": "After they are done, there will be 21 trees", "is_required": 1},
+    {"segment": "How many trees did the grove workers plant today?", "is_required": 1},
+]
+
+Output:
+{
+    "initial_segment": "How many trees did the grove workers plant today?",
+    "initial_query": "I need to calculate the number of trees planted by the grove workers today",
+    "hints": [
+        {"segment": "There are 15 trees in the grove", "hint": "15 trees are in the grove before planting"},
+        {"segment": "Grove workers will plant trees in the grove today", "hint": "Grove workers will plant trees in the grove today"},
+        {"segment": "After they are done, there will be 21 trees", "hint": "I see 21 trees after the grove workers are done"},
+    ]
+}
+
+Rules:
+- [Query selection] Choose the question segment from the segments to form the initial query.
+- [Transform each segment] Make sure each segment is included either as the initial query or as a hint. Do not forget any segments.
+- [Short initial query] Make the initial query short, not a full sentence, similar to how users use a search engine like Google
+- [No math] Do not use any math, arithmetic or symbols in your initial query and hints. Only use words like a real user would if they are making minimal effort.
+- [Order of hints] Order the hints in order of importance, from most to least important to the query. You do not need to keep the order the segments are provided in.
+
+Now complete the task for the following fully specified question and segments:
+
+Fully Specified Question:
+[[QUESTION]]
+
+Segments:
+[[SEGMENTS]]

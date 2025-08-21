@@ -1,0 +1,26 @@
+You are reviewing a multi-turn conversation between a user and an assistant, and are given the last turn of the conversation.
+
+Here is the full specification of the problem the system is attempting to solve:
+[[INITIAL_SHARD]]
+
+Specification:
+[[SHARDS]]
+
+You must classify the response of the assistant according to the response type:
+- `answer_attempt`: The response contains a complete answer attempt to the user's question (not templated or hypothetical), that can be extracted verbatim. See the task-specific answer description for more details.
+- `clarification`: The response  is short (less than 100 words) and contains a single question addressed to the user that directly inquires about an aspect of the user's query. A clarification turn cannot be long (see `discussion`), cannot contain a vague question (see `discussion`) and cannot contain multiple questions (see `interrogation`).
+- `interrogation`: The response contains multiple questions addressed to the user, sometimes organized in a list or bullet-points.
+- `discussion`: The response discusses the question in detail, without providing a final answer, asking a specific clarification question, or a refusal to answer. The response may or may not contain a vague question (e.g., “What else can I help you with?”).
+- `hedge`: The response contains multiple answer candidates based on hypotheticals (ifs) or branching (case 1, case 2) with corresponding descriptions.
+- `refuse`: The response contains an explicit or implicit refusal to answer the user's question without a follow-up question or a request.
+- `missing`: The response is empty/blank.
+
+You must output your answer in the following JSON format:
+{"response_type": "refuse|missing|answer_attempt|hedge|clarification|interrogation|discussion"}
+
+Rules:
+- The assistant giving a hint at how an answer could look like is not a final answer. You should only select `answer_attempt` if the conversation could end at this stage with the user having an entirely final answer to the problem they've formulated.
+- [Task Specific Answer] [[ANSWER_DESCRIPTION]]
+
+Conversation's last turn:
+[[CONVERSATION_SO_FAR]]

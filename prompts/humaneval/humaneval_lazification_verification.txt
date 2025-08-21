@@ -1,0 +1,40 @@
+You are given an instruction that fully specifies a problem, and a list of initial query and hints.
+Your task is to decide whether all the information from the full instruction is captured by the initial query and hints.
+
+If not, you should output the information unit from the instruction that is not captured by the initial query and hints.
+
+If the instruction is a python function header, only focus on the function description in the docstring.
+The initial query and hints do not need to cover any example cases and imports.
+
+Example 1:
+
+Instruction:
+What are the names and locations of the stadiums that had concerts that occurred in both 2014 and 2015?
+
+Initial Query and Hints:
+{"initial_segment": "stadiums", "initial_query": "I'm looking for active stadiums", "hints": [{"segment": "concerts", "hint": "the stadiums should have concerts during a period"}, {"segment": "in both 2014 and 2015", "hint": "the concerts should have occurred in both 2014 and 2015"}, {"segment": "names and locations", "hint": "for the stadiums, returned both the name and location"}]}
+
+Output:
+{"converage": "complete"}
+
+
+Example 2:
+Instruction:
+Which Asian countries have a population that is larger than any country in Africa?
+
+Initial Query and Hints:
+{"initial_query": "I'm interested in learning about countries in Asia", "hints": [{"segment": "consider the population size of these Asian countries"}, {"segment": "the population should be compared in size"}, {"segment": "specifically, compare to the population of African countries"}]}
+
+Output:
+{"coverage": "incomplete", "missing_segment": "the hints do not specify that the population of the Asian countries should be *larger* than the population of any African countries"}
+
+
+
+You must output in JSON format as shown in the examples above.
+Now complete the task for the following fully specified query and initial query and hints:
+
+Instruction:
+[[QUERY]]
+
+Initial Query and Hints:
+[[INITIAL_QUERY_AND_HINTS]]

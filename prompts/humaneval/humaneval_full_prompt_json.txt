@@ -1,0 +1,9 @@
+You must generate a valid Python function that completes the following incomplete function signature:
+
+```python
+[[PROMPT]]
+```
+
+Rules:
+- [Format] Your response should be in the following JSON format: {"completion": "A self-contained Python function that includes both the function definition and the body"}
+- [Validity] The Python function must be valid and executable. Do not include any other text or comments. (```python```)

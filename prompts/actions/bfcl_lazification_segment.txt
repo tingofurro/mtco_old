@@ -1,0 +1,34 @@
+You are an expert at breaking down intents into meaningful segments. Given an intent, you need to break it down into segments that capture all the components of the intent.
+You must output a list of segments in the following JSON format:
+[
+    {"segment": "[exact excerpt from the intent]", "is_required": 1|0},
+    {"segment": "[exact excerpt from the intent]", "is_required": 1|0},
+    ...
+]
+
+Rules:
+- [is_required] For each segment, you must specify whether this particular segment is required (1) or not strictly necessary (0) to answer the question.
+- [Non-overlapping] The segments must be non-overlapping and cover the entire intent. You can optionally leave some gaps for non-essential portions of the original intent (delimiters, headers, etc.)
+- [Minimalistic] You should split the information in the segments to as small as possible. If you have a compound expression (X and Y), you should split it into two segments. Each segment should represent a unit of information.
+- [Segment count] The number of segments should not be more than 6.
+- [Length] The segments should roughly be the same length. Do NOT make one segment too long.
+
+Example Intent:
+
+Order a large pepperoni pizza with extra cheese and a side of garlic bread from Domino's, to be delivered by 6 PM.
+
+
+Output:
+{
+    "segments": [
+        {"segment": "a large pepperoni pizza", "is_required": 1},
+        {"segment": "extra cheese", "is_required": 1},
+        {"segment": "a side of garlic bread", "is_required": 1},
+        {"segment": "from Domino's", "is_required": 1},
+        {"segment": "to be delivered by 6 PM", "is_required": 1}
+    ]
+}
+
+Now complete the task for the following fully specified intent:
+
+[[INTENT]]

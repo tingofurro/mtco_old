@@ -1,0 +1,36 @@
+You are given an instruction that fully specifies a problem, and a list of shards. Your task is to decide whether all the information from the full instruction is captured by the shards.
+
+If not, you should output the information unit from the instruction that is not captured by the shards.
+
+Example 1:
+
+Instruction:
+What are the names and locations of the stadiums that had concerts that occurred in both 2014 and 2015?
+
+Shards:
+{"shards": [{"shard_id": 1, "shard": "I'm looking for active stadiums"}, {"shard_id": 2, "shard": "the stadiums should have concerts during a period"}, {"shard_id": 3, "shard": "the concerts should have occurred in both 2014 and 2015"}, {"shard_id": 4, "shard": "for the stadiums, returned both the name and location"}]}
+
+Output:
+{"converage": "complete"}
+
+
+Example 2:
+Instruction:
+Which Asian countries have a population that is larger than any country in Africa?
+
+Shards:
+{"shards": [{"shard_id": 1, "shard": "I'm interested in learning about countries in Asia"}, {"shard_id": 2, "shard": "consider the population size of these Asian countries"}, {"shard_id": 3, "shard": "the population should be compared in size"}, {"shard_id": 4, "shard": "specifically, compare to the population of African countries"}]}
+
+Output:
+{"coverage": "incomplete", "missing_segment": "the shards do not specify that the population of the Asian countries should be *larger* than the population of any African countries"}
+
+
+
+You must output in JSON format as shown in the examples above.
+Now complete the task for the following fully specified instruction and shards:
+
+Instruction:
+[[QUERY]]
+
+Shards:
+[[SHARDS]]

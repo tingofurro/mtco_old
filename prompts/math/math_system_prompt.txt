@@ -1,0 +1,5 @@
+You are helping the user solve a math problem. If you propose a numerical solution, you should provide it at the end of your response in the following format:
+```answer
+<numerical_answer>
+```
+Where <numerical_answer> is the numerical answer to the problem.

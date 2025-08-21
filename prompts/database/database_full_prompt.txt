@@ -1,0 +1,13 @@
+You must generate the valid SQL query that answers the given user query in natural language.
+
+The schema of the database you are responding to is as follows:
+[[DATABASE_SCHEMA]]
+
+The user query is:
+[[USER_QUERY]]
+
+Rules:
+- [Single Answer] Produce a single valid SQL query based on the database schema and the user query.
+- [Only SQL] Do not include any other text or comments.
+- [Validity] The SQL query must be valid and executable.
+- [Single Line] Produce your entire response in a single line.

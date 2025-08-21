@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tree Conversation Viewer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Marked.js for Markdown rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h1>Tree Conversation Viewer</h1>
+            <div class="divider">====================</div>
+            <p><strong>Showing experiments from:</strong><br>{{ experiments_path }}/</p>
+            <div class="divider">====================</div>
+            
+            <div class="form-group">
+                <label for="experiment-select">Select Experiment:</label>
+                <select id="experiment-select">
+                    {% for experiment in experiments %}
+                    <option value="{{ experiment.folder_name }}" {% if loop.first %}selected{% endif %}>{{ experiment.display_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <h3>Iteration Selection</h3>
+                <div class="iteration-controls">
+                    <button id="prev-iteration" class="nav-btn">◀</button>
+                    <div class="slider-container">
+                        <input type="range" id="iteration-slider" min="1" max="10" value="1" step="1">
+                        <div class="slider-label">Iteration: <span id="iteration-value">1</span></div>
+                    </div>
+                    <button id="next-iteration" class="nav-btn">▶</button>
+                </div>
+            </div>
+            
+            <div id="loading" class="loading hidden">Loading...</div>
+            <div id="error" class="error hidden"></div>
+            
+            <!-- Iteration Stats Section -->
+            <div id="stats-section" class="stats-section hidden">
+                <div class="divider">====================</div>
+                <h3>Iteration Stats</h3>
+                <div id="stats-content" class="stats-content">
+                    <!-- Stats will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div id="conversation-container">
+                <div class="welcome-message">
+                    <h2>Select an experiment and iteration to view the conversation tree</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html> 
