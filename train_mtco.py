@@ -21,6 +21,7 @@ parser.add_argument("--dataset_fn", type=str, default="sample_synthesis/data/sha
 parser.add_argument("--val_dataset_fn", type=str, default="data/sharded_instructions_600.json")
 parser.add_argument("--ignore_tasks", type=str, nargs="+", default=[])
 parser.add_argument("--base_model", type=str, default="microsoft/phi-4")
+parser.add_argument("--single_sample", action="store_true")
 
 # Tree Building Related
 parser.add_argument("--max_tokens", type=int, default=1000)
@@ -128,7 +129,10 @@ if is_new_experiment:
 with open(args.dataset_fn, "r") as f:
     data = json.load(f)
 
-samples = [d for d in data if d.get("split", "train") == "train" and d["task"] not in args.ignore_tasks]
+if args.single_sample:
+    samples = [data[0]]
+else:
+    samples = [d for d in data if d.get("split", "train") == "train" and d["task"] not in args.ignore_tasks]
 
 with open(args.val_dataset_fn, "r") as f:
     val_data = json.load(f)

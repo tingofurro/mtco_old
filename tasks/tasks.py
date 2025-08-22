@@ -45,5 +45,5 @@ def get_all_supported_task_names():
     ]
 
 if __name__ == "__main__":
-    task = get_task("data2text")
-    print(len(task.get_samples()))
+    task = get_task("code")
+    # print(len(task.get_samples()))
