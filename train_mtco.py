@@ -27,7 +27,7 @@ parser.add_argument("--single_sample", action="store_true")
 parser.add_argument("--max_tokens", type=int, default=1000)
 parser.add_argument("--degree_null", type=int, default=4)
 parser.add_argument("--degree_strategy", type=int, default=1)
-parser.add_argument("--num_epochs", type=int, default=25)
+parser.add_argument("--num_epochs", type=int, default=100)
 parser.add_argument("--max_n_responses", type=int, default=None)
 parser.add_argument("--user_model", type=str, default="t-gpt-4o-mini")
 
