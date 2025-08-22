@@ -6,21 +6,14 @@ import json, re
 
 class TaskDatabase(Task):
     def __init__(self):
-        with open(f"prompts/database/database_full_prompt.txt", "r") as f:
+        current_file_dir = os.path.dirname(os.path.abspath(__file__))
+        project_root = os.path.dirname(os.path.dirname(current_file_dir))
+        prompts_dir = os.path.join(project_root, "prompts")
+        with open(os.path.join(prompts_dir, "database/database_full_prompt.txt"), "r") as f:
             self.fully_specified_prompt = f.read()
-        with open(f"prompts/database/database_system_prompt.txt", "r") as f:
+        with open(os.path.join(prompts_dir, "database/database_system_prompt.txt"), "r") as f:
             self.system_prompt = f.read()
         self.answer_extraction_strategy = "task_specific"
-
-    def get_dataset_file(self) -> str:
-        return "data/sharded_instructions_600.json"
-
-
-    def get_samples(self):
-        with open(self.get_dataset_file(), "r") as f:
-            data = json.load(f)
-        data = [d for d in data if d["task"] == "database"]
-        return data
 
     def get_task_name(self) -> str:
         return "database"
