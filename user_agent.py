@@ -32,7 +32,8 @@ class UserAgent:
         if num_user_msgs == 0:
             first_shard = sample["shards"][0]
             shard_id = first_shard["shard_id"]
-            initial_query = random.choice(first_shard["paraphrases"])
+            # initial_query = random.choice(first_shard["paraphrases"])
+            initial_query = first_shard["shard"]
 
             # print_colored(f"[User Agent] Initial query: {initial_query}", "purple")
 
@@ -49,20 +50,21 @@ class UserAgent:
             if self.task_name == "actions":
                 shard_id = sorted(shard_ids_not_revealed)[0]
             else:
-                shard_id = random.choice(shard_ids_not_revealed)
+                # shard_id = random.choice(shard_ids_not_revealed)
+                shard_id = sorted(shard_ids_not_revealed)[0]
             shard = [shard for shard in sample["shards"] if shard["shard_id"] == shard_id][0]
-            shard_text = random.choice(shard["paraphrases"])
+            # shard_text = random.choice(shard["paraphrases"])
+            shard_text = shard["shard"]
             # print_colored(f"[User Agent] Rule-based response: {shard_text}", "purple")
             return shard_text, shard_id
 
         # then we have to use the an LLM to figure it out...
 
-        shard_texts_revealed = [{"shard_id": s["shard_id"], "shard": s["shard"]} for s in sample["shards"] if s["shard_id"] in shard_ids_revealed] # remove any other irrelevant fields
+        # shard_texts_revealed = [{"shard_id": s["shard_id"], "shard": s["shard"]} for s in sample["shards"] if s["shard_id"] in shard_ids_revealed] # remove any other irrelevant fields
         shard_texts_not_revealed = [{"shard_id": s["shard_id"], "shard": s["shard"]} for s in sample["shards"] if s["shard_id"] in shard_ids_not_revealed] # remove any other irrelevant fields
 
-        shards_revealed_str = json.dumps(shard_texts_revealed)
+        # shards_revealed_str = json.dumps(shard_texts_revealed)
         shards_not_revealed_str = json.dumps(shard_texts_not_revealed)
-
 
         user_agent_prompt_populated = self.prompt_response.replace("[[CONVERSATION_SO_FAR]]", extract_conversation(conversation, to_str=True, skip_system=True)).replace("[[SHARDS_NOT_REVEALED]]", shards_not_revealed_str) # .replace("[[SHARDS_REVEALED]]", shards_revealed_str)
 
