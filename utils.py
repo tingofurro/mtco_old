@@ -44,7 +44,7 @@ def extract_gpu_details():
             return {"gpu_name": "Unknown", "num_gpus": 0}
 
 def calculate_gpu_concurrency():
-    gpu2concurrency = {"NVIDIA A100 80GB PCIe": 45, "NVIDIA A100 40GB": 10, "NVIDIA RTX A6000": 11}
+    gpu2concurrency = {"NVIDIA A100 80GB PCIe": 45, "NVIDIA A100 40GB": 10, "NVIDIA RTX A6000": 11, "NVIDIA H100 80GB HBM3": 45}
     gpu_details = extract_gpu_details()
     assert gpu_details["gpu_name"] in gpu2concurrency, f"GPU {gpu_details['gpu_name']} not found in gpu2concurrency"
     gpu_details["gpu_concurrency"] = gpu2concurrency[gpu_details["gpu_name"]]
@@ -261,4 +261,4 @@ def calculate_advantage(advantage_estimation, scores):
 
 
 if __name__ == "__main__":
-    print(make_exp_folder())
+    print(calculate_gpu_concurrency())

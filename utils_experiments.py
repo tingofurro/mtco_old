@@ -12,7 +12,7 @@ def make_exp_folder(prefix="exp"):
     exp_taken, run_idx = True, 1
     while exp_taken:
         exp_id = f"{prefix}{datetime.now().strftime('%m%d')}_{server_name}_{str(run_idx)}"
-        exp_folder = os.path.join(os.environ["HOME"], "mtco/experiments/", exp_id)
+        exp_folder = os.path.join(os.path.dirname(__file__), "experiments", exp_id)
         if not os.path.exists(exp_folder):
             exp_taken = False
         run_idx += 1
