@@ -2,7 +2,8 @@ from flask import Flask, request, jsonify
 from evaluation_service import EvaluationService
 from utils import print_colored
 import multiprocessing
-import logging
+from utils import calculate_gpu_concurrency
+import logging, os
 
 app = Flask(__name__)
 
@@ -180,8 +181,8 @@ if __name__ == '__main__':
     print("Starting Flask Evaluation Service...")
     
     # Get number of workers from environment variable or use default
-    import os
-    num_workers = int(os.environ.get('EVAL_WORKERS', 8))  # Default to 8 workers to match train_mtco.py
+
+    num_workers = int(os.environ.get('EVAL_WORKERS', calculate_gpu_concurrency()["total_concurrency"]))  # Default to 8 workers to match train_mtco.py
     
     # Initialize evaluation service automatically on startup
     print_colored(f"Initializing evaluation service with {num_workers} workers...", "yellow")
