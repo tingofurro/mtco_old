@@ -1,0 +1,4 @@
+*.pyc
+logs/
+experiments/
+data/spider/
