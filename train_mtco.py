@@ -39,7 +39,7 @@ parser.add_argument("--temperature_delta", type=float, default=0.04)
 # Validation Related
 gpu_concurrency = calculate_gpu_concurrency()
 parser.add_argument("--num_valid_runs", type=int, default=50)
-parser.add_argument("--num_valid_workers", type=int, default=int(gpu_concurrency["total_concurrency"] * 0.9))
+parser.add_argument("--num_valid_workers", type=int, default=gpu_concurrency["total_concurrency"])
 
 # Backprop Related
 parser.add_argument("--learning_rate", type=float, default=2e-2)
@@ -642,7 +642,7 @@ while True:
 
     id2node = {node["id"]: node for node in trace}
 
-    if backprop_results:
+    if backprop_results and "any_updates" in backprop_results:
         any_updates = backprop_results["any_updates"]
         corrs_A_LP, corrs_A_RL, corrs_A_NLP = backprop_results["corrs_A_LP"], backprop_results["corrs_A_RL"], backprop_results["corrs_A_NLP"]
         num_skips_unstable = backprop_results["num_skips_unstable"]

@@ -1,6 +1,5 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
-import torch
-import os
+import torch, os
 
 class GenerationModel:
     def __init__(self, model_name="microsoft/phi-4", device=None, max_batch_size=2):
@@ -163,8 +162,10 @@ class GenerationModel:
         self.tokenizer = AutoTokenizer.from_pretrained(path)
 
     def __del__(self):
-        del self.model
-        del self.tokenizer
+        if hasattr(self, "model"):
+            del self.model
+        if hasattr(self, "tokenizer"):
+            del self.tokenizer
         torch.cuda.empty_cache()
 
 
