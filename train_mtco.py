@@ -631,8 +631,7 @@ while True:
     calculate_backtrack_scores(trace, advantage_estimation=args.advantage_estimation, verbose=False)
     
     backprop_args = {"learning_rate": args.learning_rate, "normalize_logprobs": args.normalize_logprobs, "advantage_estimation": args.advantage_estimation, "skip_leaf_update": args.skip_leaf_update, "reduction": args.reduction}
-    backprop_results = backprop_worker.run_backprop(model_path=CURRENT_LATEST_MODEL_PATH, save_path=MODEL_PATH, trace=trace, args_dict=backprop_args, timeout=2400)
-    timings.update(backprop_results["timings"])
+    backprop_results = backprop_worker.run_backprop(model_path=CURRENT_LATEST_MODEL_PATH, save_path=MODEL_PATH, trace=trace, args_dict=backprop_args, timeout=600)
     T_model_unload_start = time.time()
     backprop_worker.cleanup()
     T_model_unload_end = time.time()
@@ -641,6 +640,7 @@ while True:
     id2node = {node["id"]: node for node in trace}
 
     if backprop_results and "any_updates" in backprop_results:
+        timings.update(backprop_results["timings"])
         any_updates = backprop_results["any_updates"]
         corrs_A_LP, corrs_A_RL, corrs_A_NLP = backprop_results["corrs_A_LP"], backprop_results["corrs_A_RL"], backprop_results["corrs_A_NLP"]
         num_skips_unstable = backprop_results["num_skips_unstable"]
