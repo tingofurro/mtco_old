@@ -194,12 +194,6 @@ def run_validation_phase(all_validations_samples, num_eval_workers, max_validati
     val_tasks = list(set([sample["task"] for sample in all_validations_samples]))
     validation_scores_per_task = {task: [] for task in val_tasks}
 
-    # for sample in all_validations_samples:
-    #     score, task = run_validation_sample(sample)
-    #     validation_scores.append(score)
-    #     validation_scores_per_task[task].append(score)
-
-
     with ThreadPoolExecutor(max_workers=num_eval_workers) as executor:
         futures = [executor.submit(run_validation_sample, sample) for sample in all_validations_samples]
         for future in tqdm.tqdm(as_completed(futures), total=len(futures), desc="Running validation"):
@@ -310,7 +304,11 @@ def run_tree_building_phase(sample, task_name, task, system_message, user_agent,
 
             conversation_copy = copy.deepcopy(conversation_so_far)
             if strategy_text != "":
-                conversation_copy[-1]["content"] += "\n\n" + strategy_text
+                if strategy_name == "from_scratch":
+                    # remove all the assistant turns so far...
+                    conversation_copy = [msg for msg in conversation_copy if msg["role"] != "assistant"]
+                else:
+                    conversation_copy[-1]["content"] += "\n\n" + strategy_text
 
             job_result = assistant_gen_client.schedule_job(conversation_copy, n_responses=1, temperature=temperature, max_tokens=args.max_tokens)
             job_id = job_result['job_id']
